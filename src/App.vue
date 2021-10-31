@@ -1,26 +1,59 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="appWrapper">
+    <header-top :mobile="mobile"></header-top>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'header-top':Header
+  },
+  data(){
+    return{
+      mobile:null,
+      windowWidth:null
+    }
+  },
+  created(){
+    window.addEventListener('resize',this.checkScreen);
+    this.checkScreen()
+  },
+  methods:{
+    checkScreen:function(){
+      this.windowWidth=window.innerWidth;
+      if(this.windowWidth<=750){
+        this.mobile=true
+        return;
+      }
+      else{
+        this.mobile=false
+        return;
+      }
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+    $Orange: hsl(26, 100%, 55%);
+    $Pale-orange: hsl(25, 100%, 94%);
+    $Very-vark-blue: hsl(220, 13%, 13%);
+    $Dark-grayish-blue: hsl(219, 9%, 45%);
+    $Grayish-blue: hsl(220, 14%, 75%);
+    $Light-grayish-blue: hsl(223, 64%, 98%);
+    $Font-size: 16px;
+
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .appWrapper{
+      max-width: 1440px;
+    }
 </style>
