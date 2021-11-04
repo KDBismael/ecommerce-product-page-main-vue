@@ -26,12 +26,12 @@
             </div>
         </div>
         <div v-if="mobileNav" class="modal">
-            <div class="overlay"></div>
-            <div class="mobileNav" :class="{openNav:mobileNav}">
-                <img v-on:click="showNav" src="../../images/icon-close.svg" alt="close">
+            <div v-on:click="closeNav" class="overlay"></div>
+            <div class="mobileNav" :class="{'open':openNav}">
+                <img v-on:click="closeNav" src="../../images/icon-close.svg" alt="close">
                 <nav>
                      <ul>
-                        <router-link to="#">Collections</router-link>
+                        <router-link class="Collections" to="#">Collections</router-link>
                         <router-link to="#">Men</router-link>
                         <router-link to="#">Women</router-link>
                         <router-link to="#">About</router-link>
@@ -52,13 +52,23 @@ export default {
     data(){
         return{
             mobileNav:false,
-            openNav:null
+            openNav:false,
         }
     },
     methods:{
-
+        openMenu:function(){
+            this.openNav=!this.openNav
+        },
+        closeMenu:function(){
+            this.mobileNav=!this.mobileNav;
+        },
         showNav:function(){
-            this.mobileNav=!this.mobileNav
+            this.mobileNav=!this.mobileNav;
+            setTimeout(this.openMenu,100);
+        },
+        closeNav:function(){
+            setTimeout(this.openMenu,5);
+            setTimeout(this.closeMenu,800);
         }
     }
 }
@@ -89,7 +99,7 @@ export default {
         }
         .mobileNav{
             transition: 1s transform cubic-bezier(0,.12,.14,1);
-            // transform: translateX(-200px);
+            transform: translateX(-100%);
             position: absolute;
             padding-top: 1.5rem;
             width: 70%;
@@ -171,6 +181,17 @@ export default {
                     text-decoration: none;
                     font-size: clamp(13px,14px,16px);
                     color: hsl(220, 14%, 75%);
+                    position: relative;
+                   &:hover{
+                        &::after{
+                            content: '';
+                            border-bottom: 2px solid hsl(26, 100%, 55%);
+                            position: absolute;
+                            width:100%;
+                            left:0;
+                            top: 2.45rem;
+                        }
+                   }
                 }
             }
         }
@@ -186,6 +207,7 @@ export default {
             height: 4rem;
             .iconCart{
                 justify-self: end;
+                cursor: pointer;
             }
             .image{
                 @media (max-width:750px) {
@@ -194,6 +216,7 @@ export default {
                 }
             }
             .image img{
+                cursor: pointer;
                 width: 40px;
                 height: 40px;
                 @media (max-width:750px) {
@@ -201,6 +224,10 @@ export default {
                     height: 25px;
                 }
                 object-fit: cover;
+                &:hover{
+                    border: 1px solid hsl(26, 100%, 55%);
+                    border-radius:50px;
+                }
             }
         }
     }

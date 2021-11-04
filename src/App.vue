@@ -1,7 +1,7 @@
 <template>
   <div class="appWrapper">
     <header-top :mobile="mobile"></header-top>
-    <router-view></router-view>
+    <router-view v-bind:mobile="mobile"></router-view>
   </div>
 </template>
 
