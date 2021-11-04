@@ -37,6 +37,9 @@ export default {
             priceCrossed:250.00,
             numberOf:0,
         }
+    },
+    props:{
+        mobile:Boolean,
     }
 }
 </script>
@@ -44,6 +47,10 @@ export default {
 <style lang="scss" scoped>
     .textContent{
         padding-top: 6rem;
+        @media (max-width:750px) {
+            padding-top:0;
+            padding-left: 2rem;
+        }
         .compagny{
             font-size: 16px;
             font-weight: bold;
@@ -53,21 +60,36 @@ export default {
         .fall{
             width: 70%;
             padding-bottom: 1rem;
+            @media (max-width:750px) {
+                width: 80%;
+            }
         }
         .description{
             font-size: 15px;
             padding-bottom: 1rem;
             width: 75%;
             text-align:justify;
+            @media (max-width:750px) {
+                width: 85%;
+            }
         }
         .prices{
             width: 23%;
             display: grid;
             grid-template-columns: 1fr auto;
             margin-bottom: 1rem;
+            @media (max-width:750px) {
+                width: 90%;
+                grid-template-columns: auto 1fr 1fr;
+            }
             .price{
                 font-weight: bold;
                 font-size: 20px;
+                @media (max-width:750px) {
+                    font-size:30px;
+                    align-self: center;
+                    justify-self: start;
+                }
             }
             .reduction{
                 display: grid;
@@ -75,6 +97,11 @@ export default {
                 height: 90%;
                 border-radius: 3px;
                 background-color: hsl(25, 100%, 94%);
+                @media (max-width:750px) {
+                    min-width: 50%;
+                    max-width: 60%;
+                    margin-left: 1rem;
+                }
                 p{
                     font-weight: bold;
                     font-size: 90%;
@@ -88,6 +115,11 @@ export default {
                 font-weight: bold;
                 color: hsl(220, 14%, 75%);
                 text-decoration-line: line-through;
+                @media (max-width:750px) {
+                    font-size:20px;
+                    align-self: center;
+                    justify-self: start;
+                }
             }
         }
         .addCart{
@@ -96,6 +128,13 @@ export default {
             display: grid;
             grid-template-columns: auto auto;
             grid-column-gap: 1rem;
+            @media (max-width:750px) {
+                grid-template-rows:1fr 1fr;
+                grid-template-columns:initial;
+                grid-row-gap: 1rem;
+                width: 90%;
+                height: 6rem;
+            }
             .add{
                 display: grid;
                 grid-template-columns: repeat(3,auto);

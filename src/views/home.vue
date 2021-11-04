@@ -1,7 +1,7 @@
 <template>
   <div class="homeWrapper" v-bind:class="{'homeWrapperMobile':mobile}">
-    <image-shoes></image-shoes>
-    <information></information>
+    <image-shoes :mobile="mobile"></image-shoes>
+    <information :mobile="mobile"></information>
   </div>
 </template>
 

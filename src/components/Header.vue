@@ -17,7 +17,7 @@
                 </ul>
             </nav>
             <div class="cart">
-                <div class="iconCart">
+                <div v-on:click="openCart" class="iconCart">
                     <img src="../../images/icon-cart.svg" alt="cart">
                 </div>
                 <div class="image">
@@ -40,6 +40,39 @@
                 </nav>
             </div>
         </div>
+        <div v-if="cart" class="cartModal">
+            <div v-on:click="openCart" class="overlay"></div>
+            <div class="cartContent">
+                <div class="name">
+                    <h1>cart</h1>
+                </div>
+                <div class="section">
+                    <div v-if="false" class="empty">
+                        <p>Your cart is empty.</p>
+                    </div>
+                    <div v-if="true" class="fill">
+                        <div class="description">
+                            <img src="../../images/image-product-1-thumbnail.jpg" alt=" product">
+                            <div class="info">
+                                <div class="text">
+                                    <p class="title">Fall Limited Edition Sneakers</p>
+                                    <div class="prices">
+                                        <p class="price">$125 x 3</p>
+                                        <p class="result">$375</p>
+                                    </div>
+                                </div>
+                                <img src="../../images/icon-delete.svg" alt=" ">
+                            </div>
+                        </div>
+                        <div class="checkout">
+                            <div class="btn">
+                                Checkout
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 
@@ -53,6 +86,7 @@ export default {
         return{
             mobileNav:false,
             openNav:false,
+            cart:false
         }
     },
     methods:{
@@ -69,12 +103,126 @@ export default {
         closeNav:function(){
             setTimeout(this.openMenu,5);
             setTimeout(this.closeMenu,800);
+        },
+        openCart:function(){
+            this.cart=!this.cart
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+    .cartModal{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        z-index: 2;
+        .overlay{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .cartContent{
+            position: absolute;
+            margin-top: 4rem;
+            margin-right: 1rem;
+            width: 30%;
+            height: 160px;
+            justify-self: end;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 1px 3px 10px  hsl(220, 14%, 75%);
+            .name{
+                height: 2.5rem;
+                display: grid;
+                border-bottom: 1px solid hsl(220, 11%, 89%);
+                h1{
+                    font-size: 15px;
+                    padding-left: 1rem;
+                    align-self: center;
+                }
+            }
+            .section{
+                .empty{
+                    width: 100%;
+                    height: 100%;
+                    display: grid;
+                    place-items: center;
+                }
+                .fill{
+                    width: 100%;
+                    height: 100%;
+                    display: grid;
+                    grid-template-rows: 1fr 1fr;
+                    .description{
+                        display: grid;
+                        grid-template-columns: 1fr auto;
+                        margin-top: 1rem;
+                        img{
+                            width: 80%;
+                            height: auto;
+                            object-fit: cover;
+                            object-position: right;
+                            border-radius: 5px;
+                            margin-left: .5rem;
+                        }
+                        .info{
+                            grid-column: 2/3;
+                            display: grid;
+                            grid-template-columns: auto 1fr;
+                            .text{
+                                margin-left: .5rem;
+                                .title{
+                                    font-size: 75%;
+                                }
+                                .prices{
+                                    font-size: 15px;
+                                    display: grid;
+                                    grid-template-columns: 1fr 1fr;
+                                    .result{
+                                        font-weight: bold;
+                                        font-size: 15px;
+                                    }
+                                }
+                            }
+                            img{
+                                width: 70%;
+                                margin-top: .8rem;
+                                cursor: pointer;
+                                margin-right: .5rem;
+                                margin-left:0;
+                            }
+                        }
+                    }
+                    .checkout{
+                        width: 100%;
+                        display: grid;
+                        place-items: center;
+                        .btn{
+                            display: grid;
+                            place-items: center;
+                            width: 90%;
+                            height: 60%;
+                            border-radius: 8px;
+                            color: white;
+                            background-color: hsl(26, 100%, 55%);
+                            cursor: pointer;
+                            &:hover{
+                                opacity: .5;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .modal{
         position: fixed;
         top: 0;

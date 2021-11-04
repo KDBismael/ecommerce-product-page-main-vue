@@ -1,9 +1,16 @@
 <template>
-  <div class="imageWrapper">
-      <div class="currentImage">
+  <div class="imageWrapper ">
+      <div v-if="!mobile" class="currentImage">
             <img v-on:click="showImage" :src="require('../../images/'+bigImage)" alt="product">
       </div>
-      <div class="bottomImage">
+        <div v-if="mobile" v-on:click="previousToggleMobile" class="toggleLeft">
+            <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>
+        </div>
+        <img v-if="mobile" :src="require('../../images/'+bigImage)" alt="product">
+        <div v-if="mobile" v-on:click="nextToggleMobile" class="toggleRight">
+            <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>
+        </div>
+      <div v-if="!mobile" class="bottomImage">
           <div v-on:click=" toggleP1" class="overlay defaultO">
             <img class="thumbnail"  src="../../images/image-product-1-thumbnail.jpg" alt="product-th">
           </div>
@@ -24,11 +31,11 @@
                     <svg width="14" height="15" xmlns="http://www.w3.org/2000/svg"><path d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z" fill="#69707D" fill-rule="evenodd"/></svg>
                 </div>
                 <div class="currentImage modalCurrentImage">
-                    <div class="toggleLeft">
+                    <div v-on:click="previousToggle" class="toggleLeft">
                         <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>
                     </div>
                     <img :src="require('../../images/'+bigImageModal)" alt="product">
-                    <div class="toggleRight">
+                    <div v-on:click="nextToggle" class="toggleRight">
                         <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>
                     </div>
                 </div>
@@ -65,6 +72,9 @@ export default {
             bigImageModal:"image-product-1.jpg",
         }
     },
+    props:{
+        mobile:Boolean
+    },
     methods:{
         showImage:function(){
             this.image=!this.image
@@ -83,16 +93,112 @@ export default {
            this.bigImage=this.product4
        },
         toggleModalP1:function(){
-           this.bigImageModal=this.product1
+            if(this.mobile){
+                this.bigImage=this.product1
+            }
+            else{
+                this.bigImageModal=this.product1
+            }
        },
        toggleModalP2:function(){
-           this.bigImageModal=this.product2
+           if(this.mobile){
+               this.bigImage=this.product2
+            }
+            else{
+                this.bigImageModal=this.product2
+            }
        },
        toggleModalP3:function(){
-           this.bigImageModal=this.product3
+           if(this.mobile){
+               this.bigImage=this.product3
+            }
+            else{
+                this.bigImageModal=this.product3
+            }
        },
        toggleModalP4:function(){
-           this.bigImageModal=this.product4
+           if(this.mobile){
+               this.bigImage=this.product4
+            }
+            else{
+                this.bigImageModal=this.product4
+            }
+       },
+       nextToggle:function(){
+           switch (this.bigImageModal) {
+               case this.product1:
+                   this.toggleModalP2();
+                   break;
+                case this.product2 :
+                    this.toggleModalP3();
+                    break;
+                case this.product3 :
+                    this.toggleModalP4();
+                    break;
+                case this.product4 :
+                    this.toggleModalP1();
+                    break;
+               default:
+                   this.bigImageModal="image-product-1.jpg";
+                   break;
+           }
+       },
+       nextToggleMobile:function(){
+           switch (this.bigImage) {
+               case this.product1:
+                   this.toggleModalP2();
+                   break;
+                case this.product2 :
+                    this.toggleModalP3();
+                    break;
+                case this.product3 :
+                    this.toggleModalP4();
+                    break;
+                case this.product4 :
+                    this.toggleModalP1();
+                    break;
+               default:
+                   this.bigImage="image-product-1.jpg";
+                   break;
+           }
+       },
+       previousToggle:function(){
+            switch (this.bigImageModal) {
+                case this.product1:
+                    this.toggleModalP4();
+                    break;
+                case this.product2 :
+                    this.toggleModalP1();
+                    break;
+                case this.product3 :
+                    this.toggleModalP2();
+                    break;
+                case this.product4 :
+                    this.toggleModalP3();
+                    break;
+                default:
+                    this.bigImageModal="image-product-1.jpg";
+                    break;
+            }
+       },
+       previousToggleMobile:function(){
+            switch (this.bigImage) {
+                case this.product1:
+                    this.toggleModalP4();
+                    break;
+                case this.product2 :
+                    this.toggleModalP1();
+                    break;
+                case this.product3 :
+                    this.toggleModalP2();
+                    break;
+                case this.product4 :
+                    this.toggleModalP3();
+                    break;
+                default:
+                    this.bigImage="image-product-1.jpg";
+                    break;
+            }
        },
     }
 }
@@ -105,6 +211,53 @@ export default {
         grid-template-rows: 1fr auto auto;
         grid-row-gap: 1.2rem;
         place-items: center;
+        @media (max-width:750px) {
+            margin-top:0;
+            position: relative;
+        }
+        img{
+            width:100%;
+            border-radius:0px;
+            height: auto;
+            object-fit: cover;
+        }
+        .toggleLeft{
+            display: grid;
+            place-items: center;
+            justify-self: start;
+            height: 2rem;
+            width: 2rem;
+            border-radius: 19px;
+            background-color: white;
+            position: absolute;
+            left: 5%;
+            cursor: pointer;
+                &:hover,&:active{
+                svg{
+                    path{
+                        stroke: hsl(26, 100%, 55%);
+                    }
+                }
+            }
+        }
+        .toggleRight{
+            justify-self: end;
+            display: grid;
+            place-items: center;
+            height: 2rem;
+            width: 2rem;
+            border-radius: 19px;
+            background-color: white;
+            position: absolute;
+            right: 5%;
+            cursor: pointer;
+            &:hover,&:active{
+                svg path{
+                        stroke: hsl(26, 100%, 55%);
+                }
+
+            }
+        }
         .currentImage {
             display: grid;
             place-items: center;
@@ -113,6 +266,12 @@ export default {
                 border-radius:10px;
                 height: auto;
                 object-fit: cover;
+                cursor: pointer;
+                @media (max-width:750px) {
+                    width: 100%;
+                    border-radius:0;
+                    pointer-events: none;
+                }
             }
         }
         .bottomImage{
@@ -133,6 +292,7 @@ export default {
                  &:hover{
                     border-radius:7.5px;
                     position: relative;
+                    cursor: pointer;
                     &::after{
                         content: '';
                         position: absolute;
@@ -205,6 +365,7 @@ export default {
                     background-color: white;
                     position: absolute;
                     left: 16%;
+                    cursor: pointer;
                      &:hover,&:active{
                         svg{
                             path{
@@ -223,6 +384,7 @@ export default {
                     background-color: white;
                     position: absolute;
                     right: 16%;
+                    cursor: pointer;
                     &:hover,&:active{
                         svg path{
                                 stroke: hsl(26, 100%, 55%);
@@ -238,6 +400,7 @@ export default {
                 position: absolute;
                 right: 20%;
                 top: 0%;
+                cursor: pointer;
                 svg path{
                     fill: white;
                 }
