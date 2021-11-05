@@ -19,6 +19,9 @@
             <div class="cart">
                 <div v-on:click="openCart" class="iconCart">
                     <img src="../../images/icon-cart.svg" alt="cart">
+                    <div class="NbOfProduct">
+                        <p class="num">3</p>
+                    </div>
                 </div>
                 <div class="image">
                     <img src="../../images/image-avatar.png" alt=" avatar">
@@ -133,6 +136,14 @@ export default {
             margin-right: 1rem;
             width: 30%;
             height: 160px;
+            @media (max-width:750px) {
+                width: 90%;
+                height: 200px;
+                justify-self: center;
+            }
+             @media (min-width:500px) and (max-width:750px) {
+                 height: 300px;
+             }
             justify-self: end;
             display: grid;
             grid-template-rows: auto 1fr;
@@ -141,10 +152,16 @@ export default {
             box-shadow: 1px 3px 10px  hsl(220, 14%, 75%);
             .name{
                 height: 2.5rem;
+                @media (max-width:750px) {
+                    height: 4rem;
+                }
                 display: grid;
                 border-bottom: 1px solid hsl(220, 11%, 89%);
                 h1{
                     font-size: 15px;
+                    @media (max-width:750px) {
+                        font-size: 20px;
+                    }
                     padding-left: 1rem;
                     align-self: center;
                 }
@@ -167,6 +184,10 @@ export default {
                         margin-top: 1rem;
                         img{
                             width: 80%;
+                            max-width: 45px;
+                             @media (min-width:500px) and (max-width:750px) {
+                                 max-width: 100px;
+                             }
                             height: auto;
                             object-fit: cover;
                             object-position: right;
@@ -181,14 +202,38 @@ export default {
                                 margin-left: .5rem;
                                 .title{
                                     font-size: 75%;
-                                }
+                                    @media (min-width:283px) and (max-width:750px) {
+                                        font-size:14px;
+                                    }
+                                    @media (min-width:311px) and (max-width:750px) {
+                                        font-size:16px;
+                                    }
+                                    @media (min-width:356px) and (max-width:750px) {
+                                        font-size:19px;
+                                    }
+                                    @media (min-width:393px) and (max-width:750px) {
+                                        font-size:1.3rem;
+                                    }
+                                    @media (min-width:439px) and (max-width:750px) {
+                                        font-size:1.5rem;
+                                    }
+                                    @media (min-width:500px) and (max-width:750px) {
+                                        font-size:1.8rem;
+                                    }
+                                }   
                                 .prices{
                                     font-size: 15px;
+                                    @media (min-width:500px) and (max-width:750px) {
+                                        font-size: 18px;
+                                    }
                                     display: grid;
                                     grid-template-columns: 1fr 1fr;
                                     .result{
                                         font-weight: bold;
                                         font-size: 15px;
+                                        @media (min-width:500px) and (max-width:750px) {
+                                            font-size: 18px;
+                                        }
                                     }
                                 }
                             }
@@ -198,6 +243,10 @@ export default {
                                 cursor: pointer;
                                 margin-right: .5rem;
                                 margin-left:0;
+                                @media (min-width:500px) and (max-width:750px) {
+                                    width: 30px;
+                                    margin-left: .5rem;
+                                }
                             }
                         }
                     }
@@ -209,7 +258,7 @@ export default {
                             display: grid;
                             place-items: center;
                             width: 90%;
-                            height: 60%;
+                            height:2.2rem;
                             border-radius: 8px;
                             color: white;
                             background-color: hsl(26, 100%, 55%);
@@ -356,6 +405,21 @@ export default {
             .iconCart{
                 justify-self: end;
                 cursor: pointer;
+                position: relative;
+                .NbOfProduct{
+                    position: absolute;
+                    top: -9px;
+                    right: -5px;
+                    background-color:hsl(26, 100%, 55%);
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    border-radius: 15px;
+                    display: grid;
+                    place-items: center;
+                    p{
+                        color: white;
+                    }
+                }
             }
             .image{
                 @media (max-width:750px) {
