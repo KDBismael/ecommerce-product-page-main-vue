@@ -19,8 +19,8 @@
             <div class="cart">
                 <div v-on:click="openCart" class="iconCart">
                     <img src="../../images/icon-cart.svg" alt="cart">
-                    <div class="NbOfProduct">
-                        <p class="num">3</p>
+                    <div v-if="showcart" class="NbOfProduct">
+                        <p class="num">{{cartNUm}}</p>
                     </div>
                 </div>
                 <div class="image">
@@ -50,18 +50,18 @@
                     <h1>cart</h1>
                 </div>
                 <div class="section">
-                    <div v-if="false" class="empty">
+                    <div v-if="!showcart" class="empty">
                         <p>Your cart is empty.</p>
                     </div>
-                    <div v-if="true" class="fill">
+                    <div v-if="showcart" class="fill">
                         <div class="description">
                             <img src="../../images/image-product-1-thumbnail.jpg" alt=" product">
                             <div class="info">
                                 <div class="text">
                                     <p class="title">Fall Limited Edition Sneakers</p>
                                     <div class="prices">
-                                        <p class="price">$125 x 3</p>
-                                        <p class="result">$375</p>
+                                        <p class="price">${{prices}} x {{cartNUm}}</p>
+                                        <p class="result">${{total}}</p>
                                     </div>
                                 </div>
                                 <img src="../../images/icon-delete.svg" alt=" ">
@@ -89,8 +89,26 @@ export default {
         return{
             mobileNav:false,
             openNav:false,
-            cart:false
+            cart:false,
+            showcart:false,
+            cartNUm:0,
+            prices:null,
+            total:null,
         }
+    },
+    created(){
+        this.eventBus.on('cart',(data)=>{
+            this.showcart=data
+        });
+        this.eventBus.on('num',(data)=>{
+            this.cartNUm=data
+        });
+        this.eventBus.on('price',(data)=>{
+            this.prices=data
+        });
+        this.eventBus.on('total',(data)=>{
+            this.total=data;
+        })
     },
     methods:{
         openMenu:function(){
@@ -109,7 +127,7 @@ export default {
         },
         openCart:function(){
             this.cart=!this.cart
-        }
+        },
     }
 }
 </script>
@@ -280,6 +298,7 @@ export default {
         right: 0;
         width: 100%;
         height: 100%;
+        z-index: 4;
         .overlay{
             position: fixed;
             top: 0;
@@ -289,7 +308,7 @@ export default {
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.5);
-            z-index: 1;
+            z-index: 5;
         }
         .open{
             transform:none !important;
@@ -302,7 +321,7 @@ export default {
             width: 70%;
             height: 100%;
             background-color: white;
-            z-index: 2;
+            z-index: 6;
             display: grid;
             grid-template-rows: auto 1fr;
             img{

@@ -52,6 +52,11 @@ export default {
       padding: 0;
       margin: 0;
       box-sizing: border-box;
+      font-family: "Kumbh_Sans";
+    }
+    @font-face {
+      font-family:Kumbh_Sans ;
+      src: url('../Kumbh_Sans/KumbhSans-VariableFont_wght.ttf');
     }
     .appWrapper{
       max-width: 1440px;

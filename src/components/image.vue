@@ -11,16 +11,16 @@
             <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>
         </div>
       <div v-if="!mobile" class="bottomImage">
-          <div v-on:click=" toggleP1" class="overlay defaultO">
+          <div ref="thumbnail1" v-on:click=" toggleP1();Overlay1()" class="overlay defaultO">
             <img class="thumbnail"  src="../../images/image-product-1-thumbnail.jpg" alt="product-th">
           </div>
-          <div v-on:click=" toggleP2" class="overlay">
+          <div ref="thumbnail2" v-on:click=" toggleP2();Overlay2()" class="overlay">
             <img class="thumbnail" src="../../images/image-product-2-thumbnail.jpg" alt="product-th">
           </div>
-          <div v-on:click=" toggleP3" class="overlay">
+          <div ref="thumbnail3" v-on:click=" toggleP3();Overlay3()" class="overlay">
             <img class="thumbnail" src="../../images/image-product-3-thumbnail.jpg" alt="product-th">
           </div>
-          <div v-on:click=" toggleP4" class="overlay">
+          <div ref="thumbnail4" v-on:click=" toggleP4();Overlay4()" class="overlay">
             <img  class="thumbnail" src="../../images/image-product-4-thumbnail.jpg" alt="product-th">
           </div>
       </div>
@@ -40,16 +40,16 @@
                     </div>
                 </div>
                 <div class="bottomImage modalBottomImage">
-                    <div v-on:click=" toggleModalP1" class="overlay defaultO">
+                    <div ref="thumbnailM1" v-on:click=" toggleModalP1();OverlayM1() " class="overlay defaultO">
                         <img class="thumbnail"  src="../../images/image-product-1-thumbnail.jpg" alt="product-th">
                     </div>
-                    <div v-on:click=" toggleModalP2" class="overlay">
+                    <div ref="thumbnailM2" v-on:click=" toggleModalP2();OverlayM2() " class="overlay">
                         <img class="thumbnail" src="../../images/image-product-2-thumbnail.jpg" alt="product-th">
                     </div>
-                    <div v-on:click=" toggleModalP3" class="overlay">
+                    <div ref="thumbnailM3" v-on:click=" toggleModalP3(); OverlayM3() " class="overlay">
                         <img class="thumbnail" src="../../images/image-product-3-thumbnail.jpg" alt="product-th">
                     </div>
-                    <div v-on:click=" toggleModalP4" class="overlay">
+                    <div ref="thumbnailM4" v-on:click=" toggleModalP4(); OverlayM4() " class="overlay">
                         <img  class="thumbnail" src="../../images/image-product-4-thumbnail.jpg" alt="product-th">
                     </div>
                 </div>
@@ -128,15 +128,19 @@ export default {
            switch (this.bigImageModal) {
                case this.product1:
                    this.toggleModalP2();
+                   this.OverlayM2();
                    break;
                 case this.product2 :
                     this.toggleModalP3();
+                    this.OverlayM3();
                     break;
                 case this.product3 :
                     this.toggleModalP4();
+                    this.OverlayM4();
                     break;
                 case this.product4 :
                     this.toggleModalP1();
+                    this.OverlayM1();
                     break;
                default:
                    this.bigImageModal="image-product-1.jpg";
@@ -166,15 +170,19 @@ export default {
             switch (this.bigImageModal) {
                 case this.product1:
                     this.toggleModalP4();
+                    this.OverlayM4();
                     break;
                 case this.product2 :
                     this.toggleModalP1();
+                    this.OverlayM1();
                     break;
                 case this.product3 :
                     this.toggleModalP2();
+                    this.OverlayM2();
                     break;
                 case this.product4 :
                     this.toggleModalP3();
+                    this.OverlayM3();
                     break;
                 default:
                     this.bigImageModal="image-product-1.jpg";
@@ -200,6 +208,54 @@ export default {
                     break;
             }
        },
+       Overlay1:function(){
+           this.$refs.thumbnail1.classList.add("defaultO")
+           this.$refs.thumbnail2.classList.remove("defaultO")
+           this.$refs.thumbnail3.classList.remove("defaultO")
+           this.$refs.thumbnail4.classList.remove("defaultO")
+        },
+       Overlay2:function(){
+           this.$refs.thumbnail2.classList.add("defaultO")
+           this.$refs.thumbnail1.classList.remove("defaultO")
+           this.$refs.thumbnail3.classList.remove("defaultO")
+           this.$refs.thumbnail4.classList.remove("defaultO")
+        },
+       Overlay3:function(){
+           this.$refs.thumbnail3.classList.add("defaultO")
+           this.$refs.thumbnail2.classList.remove("defaultO")
+           this.$refs.thumbnail1.classList.remove("defaultO")
+           this.$refs.thumbnail4.classList.remove("defaultO")
+        },
+       Overlay4:function(){
+           this.$refs.thumbnail4.classList.add("defaultO")
+           this.$refs.thumbnail2.classList.remove("defaultO")
+           this.$refs.thumbnail3.classList.remove("defaultO")
+           this.$refs.thumbnail1.classList.remove("defaultO")
+        },
+       OverlayM1:function(){
+           this.$refs.thumbnailM1.classList.add("defaultO")
+           this.$refs.thumbnailM2.classList.remove("defaultO")
+           this.$refs.thumbnailM3.classList.remove("defaultO")
+           this.$refs.thumbnailM4.classList.remove("defaultO")
+        },
+       OverlayM2:function(){
+           this.$refs.thumbnailM2.classList.add("defaultO")
+           this.$refs.thumbnailM1.classList.remove("defaultO")
+           this.$refs.thumbnailM3.classList.remove("defaultO")
+           this.$refs.thumbnailM4.classList.remove("defaultO")
+        },
+       OverlayM3:function(){
+           this.$refs.thumbnailM3.classList.add("defaultO")
+           this.$refs.thumbnailM2.classList.remove("defaultO")
+           this.$refs.thumbnailM1.classList.remove("defaultO")
+           this.$refs.thumbnailM4.classList.remove("defaultO")
+        },
+       OverlayM4:function(){
+           this.$refs.thumbnailM4.classList.add("defaultO")
+           this.$refs.thumbnailM2.classList.remove("defaultO")
+           this.$refs.thumbnailM3.classList.remove("defaultO")
+           this.$refs.thumbnailM1.classList.remove("defaultO")
+        },
     }
 }
 </script>
@@ -345,6 +401,9 @@ export default {
         }
         .modalContent{
             position: absolute;
+            @media (min-width:950px) {
+                top:2.5rem;
+            }
             top:1rem;
             width: 50%;
             height:400px;
@@ -401,6 +460,9 @@ export default {
                 right: 20%;
                 top: 0%;
                 cursor: pointer;
+                @media (min-width:950px) {
+                    top: -1.5rem;
+                }
                 svg path{
                     fill: white;
                 }
